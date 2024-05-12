@@ -3,6 +3,7 @@
 A Content Discovery tool for finding more interesting/hidden content on web applications.
 
 - [Disclaimers](https://github.com/WillIWas123/WebCD#disclaimers)
+- [Requirements](https://github.com/WillIWas123/WebCD#requirements)
 - [Why](https://github.com/WillIWas123/WebCD#usecases)
 - [Help](https://github.com/WillIWas123/WebCD#example-usage)
 
@@ -11,6 +12,9 @@ A Content Discovery tool for finding more interesting/hidden content on web appl
 - This is considered to be a beta release, and may contain bugs and unintentional behavior. Consider yourself warned!
 - I've borrowed and tweaked wordlists from [SecLists](https://github.com/danielmiessler/SecLists).
 
+## Requirements
+
+WebCD requires [HTTPDiff](https://github.com/WillIWas123/HTTPDiff) and can be install with `python3 -m pip install httpdiff` or `python3 -m pip install -r requirements.txt`.
 
 ## Why
 
