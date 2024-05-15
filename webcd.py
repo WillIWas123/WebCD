@@ -323,6 +323,7 @@ class WebContentDiscovery:
             j = ""
             if "." in i:
                 j = "." + ".".join(i.split(".")[1:])
+            i = ".".join(i.split(".")[:-1])
             path = "/".join(self.get_path(url.replace("FUZZ", i + j)).split("/")[:-1])
             key = f"{path}/{j}"
             new_url = self.set_path(url, path + "/FUZZ")
