@@ -227,7 +227,9 @@ class WebContentDiscovery:
             if error and self.options.args.ignore_errors is False:
                 return None
             analyzer.add_response(response, response_time, error)
-            time.sleep(self.options.args.calibration_sleep or self.options.args.sleep or (10000 - response_time) / 10000)
+            sleep_time = self.options.args.calibration_sleep or self.options.args.sleep or (10000 - response_time) / 10000
+            if sleep_time > 0:
+                time.sleep(sleep_time)
         response, response_time, error = self.send(new_url)
         if error and self.options.args.ignore_errors is False:
             return None
@@ -321,10 +323,19 @@ class WebContentDiscovery:
     def scan_specials(self, url, jobs):
         for i in self.special_payloads.split("\n"):
             j = ""
+            index = -1
+            # Filename ends with a "/"
+            if len(i) > 0 and i[-1] == "/":
+                j = "/"
+                index = -2
+                # Filename ends with a "/" and contains no extensions
+                if "." not in i:
+                    i = i[:-1]
+            # Filename contains an extension
             if "." in i:
                 j = "." + ".".join(i.split(".")[1:])
-            i = ".".join(i.split(".")[:-1])
-            path = "/".join(self.get_path(url.replace("FUZZ", i + j)).split("/")[:-1])
+                i = ".".join(i.split(".")[:-1])
+            path = "/".join(self.get_path(url.replace("FUZZ", i + j)).split("/")[:index])
             key = f"{path}/{j}"
             new_url = self.set_path(url, path + "/FUZZ")
             if self.analyzers.get(key) is None:
