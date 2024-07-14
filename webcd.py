@@ -227,7 +227,7 @@ class WebContentDiscovery:
             if error and self.options.args.ignore_errors is False:
                 return None
             analyzer.add_response(response, response_time, error)
-            sleep_time = self.options.args.calibration_sleep or self.options.args.sleep or (10000 - response_time) / 10000
+            sleep_time = self.options.args.calibration_sleep/1000 or self.options.args.sleep/1000 or (10000 - response_time) / 10000
             if sleep_time > 0:
                 time.sleep(sleep_time)
         response, response_time, error = self.send(new_url)
